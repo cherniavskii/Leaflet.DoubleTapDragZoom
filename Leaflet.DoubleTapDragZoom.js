@@ -58,6 +58,7 @@ var DoubleTapDragZoom = L.Handler.extend({
   },
 
   _onDoubleTapDragEnd: function (e) {
+    if (!this._center) { return; }
     L.Util.cancelAnimFrame(this._animRequest);
 
     // Pinch updates GridLayers' levels only when zoomSnap is off, so zoomSnap becomes noUpdate.
@@ -66,6 +67,8 @@ var DoubleTapDragZoom = L.Handler.extend({
     } else {
       this._map._resetView(this._center, this._map._limitZoom(this._zoom));
     }
+
+    this._center = null;
   }
 });
 
