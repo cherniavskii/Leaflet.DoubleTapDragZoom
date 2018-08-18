@@ -2,7 +2,7 @@
 
 This plugin implements double-tap-and-drag zoom feature, which allows to zoom in / out with one hand! :tada:
 
-Inspired by Google Maps.
+Inspired by Google Maps and Apple Maps.
 
 ## Usage
 
