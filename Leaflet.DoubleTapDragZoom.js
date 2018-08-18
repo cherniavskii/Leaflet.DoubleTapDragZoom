@@ -1,5 +1,10 @@
 L.Map.mergeOptions({
-  doubleTapDragZoom: L.Browser.touch
+  // @option doubleTapDragZoom: Boolean|String = *
+  // Whether the map can be zoomed by double-tap-and-drag gesture. If
+  // passed `'center'`, it will zoom to the center of the view regardless of
+  // where the touch event (finger) was. Enabled for touch-capable web
+  // browsers except for old Androids.
+  doubleTapDragZoom: L.Browser.touch && !L.Browser.android23,
 });
 
 var DoubleTapDragZoom = L.Handler.extend({
@@ -22,9 +27,10 @@ var DoubleTapDragZoom = L.Handler.extend({
 
     var p = map.mouseEventToContainerPoint(e.touches[0]);
     this._startPointY = p.y;
+    this._startPoint = p;
 
-    var centerPoint = map.getSize()._divideBy(2);
-    this._startLatLng = map.containerPointToLatLng(centerPoint);
+    this._centerPoint = map.getSize()._divideBy(2);
+    this._startLatLng = map.containerPointToLatLng(p);
 
     this._startZoom = map.getZoom();
 
@@ -48,7 +54,8 @@ var DoubleTapDragZoom = L.Handler.extend({
 
     this._zoom = map.getScaleZoom(scale, this._startZoom);
 
-    this._center = this._startLatLng;
+    const delta = L.point(this._startPoint.x, p.y)._add(this._startPoint).divideBy(2)._subtract(this._centerPoint);
+    this._center = map.unproject(map.project(this._startLatLng, this._zoom).subtract(delta), this._zoom);
     if (scale === 1) { return; }
 
     L.Util.cancelAnimFrame(this._animRequest);
