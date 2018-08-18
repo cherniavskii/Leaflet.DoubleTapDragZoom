@@ -1,9 +1,4 @@
 L.Map.mergeOptions({
-  // @option doubleTapDragZoom: Boolean|String = *
-  // Whether the map can be zoomed by double-tap-and-drag gesture. If
-  // passed `'center'`, it will zoom to the center of the view regardless of
-  // where the touch event (finger) was. Enabled for touch-capable web
-  // browsers except for old Androids.
   doubleTapDragZoom: L.Browser.touch && !L.Browser.android23,
 });
 
