@@ -44,7 +44,7 @@ var DoubleTapDragZoom = L.Handler.extend({
 
     var distance = this._startPointY - p.y;
 
-    var scale = Math.pow(Math.E, distance / this._startPointY);
+    var scale = Math.pow(Math.E, distance / 200);
 
     this._zoom = map.getScaleZoom(scale, this._startZoom);
 
