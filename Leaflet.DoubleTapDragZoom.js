@@ -1,5 +1,5 @@
 L.Map.mergeOptions({
-  doubleTapDragZoom: L.Browser.touch
+  doubleTapDragZoom: L.Browser.touch && !L.Browser.android23,
 });
 
 var DoubleTapDragZoom = L.Handler.extend({
@@ -22,9 +22,15 @@ var DoubleTapDragZoom = L.Handler.extend({
 
     var p = map.mouseEventToContainerPoint(e.touches[0]);
     this._startPointY = p.y;
+    this._startPoint = p;
 
-    var centerPoint = map.getSize()._divideBy(2);
-    this._startLatLng = map.containerPointToLatLng(centerPoint);
+    this._centerPoint = map.getSize()._divideBy(2);
+
+    if (map.options.doubleTapDragZoom === 'center') {
+      this._startLatLng = map.containerPointToLatLng(this._centerPoint);
+    } else {
+      this._startLatLng = map.containerPointToLatLng(p);
+    }
 
     this._startZoom = map.getZoom();
 
@@ -46,10 +52,21 @@ var DoubleTapDragZoom = L.Handler.extend({
 
     var scale = Math.pow(Math.E, distance / 200);
 
+    if (scale === 1) { return; }
+
     this._zoom = map.getScaleZoom(scale, this._startZoom);
 
-    this._center = this._startLatLng;
-    if (scale === 1) { return; }
+    if (map.options.doubleTapDragZoom === 'center') {
+      this._center = this._startLatLng;
+    } else {
+      var delta =
+        L.point(this._startPoint.x, p.y)
+          ._add(this._startPoint)
+          .divideBy(2)
+          ._subtract(this._centerPoint);
+
+      this._center = map.unproject(map.project(this._startLatLng, this._zoom).subtract(delta), this._zoom);
+    }
 
     L.Util.cancelAnimFrame(this._animRequest);
 
