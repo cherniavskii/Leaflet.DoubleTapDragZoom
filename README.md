@@ -18,9 +18,10 @@ import 'leaflet-doubletapdragzoom';
 
 ### Loading from unpkg.com:
 
-Add the following scripts to head:
+Add the following scripts to the head:
 
 ```
+<script src="https://unpkg.com/leaflet">
 <script src="https://unpkg.com/leaflet-doubletapdrag"></script>
 <script src="https://unpkg.com/leaflet-doubletapdragzoom"></script>
 ```
