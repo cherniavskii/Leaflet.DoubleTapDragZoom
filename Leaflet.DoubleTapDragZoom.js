@@ -1,5 +1,8 @@
 L.Map.mergeOptions({
   doubleTapDragZoom: L.Browser.touch && !L.Browser.android23,
+  doubleTapDragZoomOptions: {
+    reverse: false,
+  },
 });
 
 var DoubleTapDragZoom = L.Handler.extend({
@@ -42,13 +45,14 @@ var DoubleTapDragZoom = L.Handler.extend({
     if (!e.touches || e.touches.length !== 1) { return; }
 
     var map = this._map;
+    var reverse = this._map.options.doubleTapDragZoomOptions.reverse;
     var p = map.mouseEventToContainerPoint(e.touches[0]);
 
     if (p.y <= 0) {
       return;
     }
 
-    var distance = this._startPointY - p.y;
+    var distance = reverse ? p.y - this._startPointY : this._startPointY - p.y;
 
     var scale = Math.pow(Math.E, distance / 200);
 
