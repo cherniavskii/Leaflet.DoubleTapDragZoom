@@ -15,13 +15,23 @@
     }
     #map {
       width: 100%;
-      height: 100%;
+      height: 90%;
     }
   </style>
 </head>
 <body>
 
 <div id="map"></div>
+<div id="controls">
+  <div style="display: flex; align-items: center;">
+    <pre>doubleTapDragZoom: </pre>
+    <select id="doubleTapDragZoom">
+      <option value="true">true</option>
+      <option value="false">false</option>
+      <option value="center">center</option>
+    </select>
+  </div>
+</div>
 
 <script type="text/javascript">
   var map = L.map('map').setView([-27.1117, -109.3390], 11);
@@ -29,6 +39,30 @@
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
+
+  var doubleTapDragZoomSelect = document.getElementById('doubleTapDragZoom');
+
+  doubleTapDragZoomSelect.addEventListener('change', (e) => {
+    var value;
+
+    if (e.target.value === 'true') {
+      value = true;
+    } else if (e.target.value === 'false') {
+      value = false;
+    } else {
+      value = e.target.value;
+    }
+
+    if (value) {
+      map.doubleTapDragZoom.enable();
+    } else {
+      map.doubleTapDragZoom.disable();
+    }
+
+    L.Util.setOptions(map, {
+      doubleTapDragZoom: value,
+    });
+  })
 </script>
 </body>
 </html>
