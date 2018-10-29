@@ -15,7 +15,14 @@
     }
     #map {
       width: 100%;
-      height: 90%;
+      height: 85%;
+    }
+    pre {
+      margin: 8px 0;
+    }
+    .row {
+      display: flex;
+      align-items: center;
     }
   </style>
 </head>
@@ -23,13 +30,18 @@
 
 <div id="map"></div>
 <div id="controls">
-  <div style="display: flex; align-items: center;">
+  <div class="row">
     <pre>doubleTapDragZoom: </pre>
     <select id="doubleTapDragZoom">
       <option value="true">true</option>
       <option value="false">false</option>
       <option value="center">center</option>
     </select>
+  </div>
+  <pre>doubleTapDragZoomOptions:</pre>
+  <div class="row">
+    <label for="reverse"><pre>reverse</pre></label>
+    <input id="reverse" type="checkbox">
   </div>
 </div>
 
@@ -41,6 +53,7 @@
   }).addTo(map);
 
   var doubleTapDragZoomSelect = document.getElementById('doubleTapDragZoom');
+  var reverseCheckbox = document.getElementById('reverse');
 
   doubleTapDragZoomSelect.addEventListener('change', (e) => {
     var value;
@@ -61,6 +74,16 @@
 
     L.Util.setOptions(map, {
       doubleTapDragZoom: value,
+    });
+  });
+
+  reverseCheckbox.addEventListener('change', function(event) {
+    var checked = event.target.checked;
+
+    L.Util.setOptions(map, {
+      doubleTapDragZoomOptions: {
+        reverse: checked,
+      },
     });
   })
 </script>
