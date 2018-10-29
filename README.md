@@ -31,7 +31,7 @@ Add the following scripts to the head:
 Now you can pass supported options to map.
 See [Options](#options) section for more details.
 
-```
+```js
 var map = L.map('map', {
   doubleTapDragZoom: true,
   doubleTapDragZoomOptions: {
@@ -41,7 +41,7 @@ var map = L.map('map', {
 ```
 
 To achieve Google Maps-like behavior, use this configuration:
-```
+```js
 var map = L.map('map', {
   doubleTapDragZoom: 'center',
   doubleTapDragZoomOptions: {
