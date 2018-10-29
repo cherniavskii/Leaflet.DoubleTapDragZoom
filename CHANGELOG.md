@@ -1,6 +1,6 @@
 # Leaflet.DoubleTapDragZoom Changelog
 
-## 0.2.0 (2018-08-xx)
+## Unreleased
 
 - Add `doubleTapDragZoomOptions` map option
 - Add `reverse` option to `doubleTapDragZoomOptions`
