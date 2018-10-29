@@ -1,6 +1,6 @@
 {
   "name": "leaflet-doubletapdragzoom",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Leaflet plugin that implements double-tap-and-drag zoom feature for zooming in / out with one hand",
   "main": "Leaflet.DoubleTapDragZoom.js",
   "directories": {
