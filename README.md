@@ -4,6 +4,8 @@ This plugin implements double-tap-and-drag zoom feature, which allows to zoom in
 
 Inspired by Google Maps and Apple Maps.
 
+## Demo: https://cherniavskii.github.io/Leaflet.DoubleTapDragZoom/
+
 ## Installation
 
 ### NPM
