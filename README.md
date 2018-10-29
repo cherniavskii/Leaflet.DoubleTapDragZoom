@@ -43,7 +43,7 @@ var map = L.map('map', {
 To achieve Google Maps-like behavior, use this configuration:
 ```
 var map = L.map('map', {
-  doubleTapDragZoom: 'center,
+  doubleTapDragZoom: 'center',
   doubleTapDragZoomOptions: {
     reverse: true,
   },
