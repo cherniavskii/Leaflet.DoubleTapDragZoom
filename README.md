@@ -31,9 +31,22 @@ Add the following scripts to the head:
 Now you can pass supported options to map.
 See [Options](#options) section for more details.
 
-```
+```js
 var map = L.map('map', {
   doubleTapDragZoom: true,
+  doubleTapDragZoomOptions: {
+    reverse: false,
+  },
+})
+```
+
+To achieve Google Maps-like behavior, use this configuration:
+```js
+var map = L.map('map', {
+  doubleTapDragZoom: 'center',
+  doubleTapDragZoomOptions: {
+    reverse: true,
+  },
 })
 ```
 
@@ -42,3 +55,5 @@ var map = L.map('map', {
 | Option |  Type | Default | Description |
 | ------ | ----- | ------- | ----------- |
 | `doubleTapDragZoom` | Boolean\|String | * | Whether the map can be zoomed by double-tap-and-drag gesture. If passed `'center'`, it will zoom to the center of the view regardless of where the touch event (finger) was. Enabled for touch-capable web browsers except for old Androids |
+| `doubleTapDragZoomOptions` | Object | -- | Plugin options, see available options below |
+| `doubleTapDragZoomOptions.reverse` | Boolean | false | If true, zoom drag direction will be reversed - dragging up will zoom out, dragging down will zoom in |
