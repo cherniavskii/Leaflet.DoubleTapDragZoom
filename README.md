@@ -1,3 +1,10 @@
+![](https://img.shields.io/npm/v/leaflet-doubletapdragzoom.svg)
+![](https://img.shields.io/bundlephobia/minzip/leaflet-doubletapdragzoom.svg)
+![](https://img.shields.io/npm/l/leaflet-doubletapdragzoom.svg)
+![](https://img.shields.io/npm/dt/leaflet-doubletapdragzoom.svg)
+
+
+
 # Leaflet.DoubleTapDragZoom
 
 This plugin implements double-tap-and-drag zoom feature, which allows to zoom in / out with one hand! :tada:
