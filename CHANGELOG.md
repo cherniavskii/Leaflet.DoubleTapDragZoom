@@ -1,5 +1,9 @@
 # Leaflet.DoubleTapDragZoom Changelog
 
+## 0.3.0 (2021-11-07)
+
+- Fix touch event being propagated when zooming
+
 ## 0.2.0 (2018-10-29)
 
 - Add `doubleTapDragZoomOptions` map option
