@@ -10,6 +10,7 @@ var DoubleTapDragZoom = L.Handler.extend({
     this._map.on('doubletapdragstart', this._onDoubleTapDragStart, this);
     this._map.on('doubletapdrag', this._onDoubleTapDrag, this);
     this._map.on('doubletapdragend', this._onDoubleTapDragEnd, this);
+    L.DomEvent.on(this._map._container, 'touchmove', this._onDragging, this);
   },
 
   removeHooks: function () {
@@ -20,7 +21,6 @@ var DoubleTapDragZoom = L.Handler.extend({
 
   _onDoubleTapDragStart: function (e) {
     var map = this._map;
-
     if (!e.touches || e.touches.length !== 1 || map._animatingZoom) { return; }
 
     var p = map.mouseEventToContainerPoint(e.touches[0]);
@@ -39,6 +39,7 @@ var DoubleTapDragZoom = L.Handler.extend({
 
     map._stop();
     map._moveStart(true, false);
+    this._doubleTapDragging = true;
   },
 
   _onDoubleTapDrag: function (e) {
@@ -90,6 +91,14 @@ var DoubleTapDragZoom = L.Handler.extend({
     }
 
     this._center = null;
+    this._doubleTapDragging = false;
+  },
+
+  _onDragging: function (e) {
+    if (this._doubleTapDragging) {
+      L.DomEvent.preventDefault(e);
+      L.DomEvent.stopPropagation(e);
+    }
   }
 });
 
