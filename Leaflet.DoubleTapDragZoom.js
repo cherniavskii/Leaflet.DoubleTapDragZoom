@@ -80,6 +80,8 @@ var DoubleTapDragZoom = L.Handler.extend({
   },
 
   _onDoubleTapDragEnd: function (e) {
+    this._doubleTapDragging = false;
+
     if (!this._center) { return; }
     L.Util.cancelAnimFrame(this._animRequest);
 
@@ -91,7 +93,6 @@ var DoubleTapDragZoom = L.Handler.extend({
     }
 
     this._center = null;
-    this._doubleTapDragging = false;
   },
 
   _onDragging: function (e) {
