@@ -1,5 +1,13 @@
 # Leaflet.DoubleTapDragZoom Changelog
 
+## 0.3.1 (2024-01-06)
+
+- Fix freezing map for non correct gesture (#13)
+
+## 0.3.0 (2021-11-07)
+
+- Fix touch event being propagated when zooming
+
 ## 0.3.0 (2021-11-07)
 
 - Fix touch event being propagated when zooming
