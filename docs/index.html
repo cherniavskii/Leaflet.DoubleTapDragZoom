@@ -1,91 +1,96 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8">
-  <title>Leaflet.DoubleTapDragZoom</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-doubletapdrag"></script>
-  <script src="https://unpkg.com/leaflet-doubletapdragzoom"></script>
-  <style>
-    body, html {
-      margin: 0;
-      height: 100%;
-    }
-    #map {
-      width: 100%;
-      height: 85%;
-    }
-    pre {
-      margin: 8px 0;
-    }
-    .row {
-      display: flex;
-      align-items: center;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Leaflet.DoubleTapDragZoom</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-doubletapdrag"></script>
+    <script src="https://unpkg.com/leaflet-doubletapdragzoom"></script>
+    <style>
+      body,
+      html {
+        margin: 0;
+        height: 100%;
+      }
+      #map {
+        width: 100%;
+        height: 85%;
+      }
+      pre {
+        margin: 8px 0;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="controls">
+      <div class="row">
+        <pre>doubleTapDragZoom: </pre>
+        <select id="doubleTapDragZoom">
+          <option value="true">true</option>
+          <option value="false">false</option>
+          <option value="center">center</option>
+        </select>
+      </div>
+      <pre>doubleTapDragZoomOptions:</pre>
+      <div class="row">
+        <label for="reverse"><pre>reverse</pre></label>
+        <input id="reverse" type="checkbox" />
+      </div>
+    </div>
 
-<div id="map"></div>
-<div id="controls">
-  <div class="row">
-    <pre>doubleTapDragZoom: </pre>
-    <select id="doubleTapDragZoom">
-      <option value="true">true</option>
-      <option value="false">false</option>
-      <option value="center">center</option>
-    </select>
-  </div>
-  <pre>doubleTapDragZoomOptions:</pre>
-  <div class="row">
-    <label for="reverse"><pre>reverse</pre></label>
-    <input id="reverse" type="checkbox">
-  </div>
-</div>
+    <script type="text/javascript">
+      var map = L.map("map").setView([-27.1117, -109.339], 11);
 
-<script type="text/javascript">
-  var map = L.map('map').setView([-27.1117, -109.3390], 11);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
+      var doubleTapDragZoomSelect =
+        document.getElementById("doubleTapDragZoom");
+      var reverseCheckbox = document.getElementById("reverse");
 
-  var doubleTapDragZoomSelect = document.getElementById('doubleTapDragZoom');
-  var reverseCheckbox = document.getElementById('reverse');
+      doubleTapDragZoomSelect.addEventListener("change", (e) => {
+        var value;
 
-  doubleTapDragZoomSelect.addEventListener('change', (e) => {
-    var value;
+        if (e.target.value === "true") {
+          value = true;
+        } else if (e.target.value === "false") {
+          value = false;
+        } else {
+          value = e.target.value;
+        }
 
-    if (e.target.value === 'true') {
-      value = true;
-    } else if (e.target.value === 'false') {
-      value = false;
-    } else {
-      value = e.target.value;
-    }
+        if (value) {
+          map.doubleTapDragZoom.enable();
+        } else {
+          map.doubleTapDragZoom.disable();
+        }
 
-    if (value) {
-      map.doubleTapDragZoom.enable();
-    } else {
-      map.doubleTapDragZoom.disable();
-    }
+        L.Util.setOptions(map, {
+          doubleTapDragZoom: value,
+        });
+      });
 
-    L.Util.setOptions(map, {
-      doubleTapDragZoom: value,
-    });
-  });
+      reverseCheckbox.addEventListener("change", function (event) {
+        var checked = event.target.checked;
 
-  reverseCheckbox.addEventListener('change', function(event) {
-    var checked = event.target.checked;
-
-    L.Util.setOptions(map, {
-      doubleTapDragZoomOptions: {
-        reverse: checked,
-      },
-    });
-  })
-</script>
-</body>
+        L.Util.setOptions(map, {
+          doubleTapDragZoomOptions: {
+            reverse: checked,
+          },
+        });
+      });
+    </script>
+  </body>
 </html>
