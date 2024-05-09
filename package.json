@@ -12,7 +12,7 @@
     "url": "git+https://github.com/cherniavskii/Leaflet.DoubleTapDragZoom.git"
   },
   "peerDependencies": {
-    "leaflet": "~1.0.0"
+    "leaflet": "^1.0.0"
   },
   "keywords": [
     "leaflet",
